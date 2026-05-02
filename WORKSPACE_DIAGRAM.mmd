@@ -1,0 +1,70 @@
+graph TD
+    A["🏗️ ceiling-hub-premium"] --> B["⚙️ Configuration"]
+    A --> C["📦 src/"]
+    A --> D["🚀 Public Assets"]
+    
+    B --> B1["vite.config.js"]
+    B --> B2["tailwind.config.js"]
+    B --> B3["postcss.config.js"]
+    B --> B4["eslint.config.js"]
+    B --> B5["package.json"]
+    B --> B6["index.html"]
+    
+    C --> C1["🎨 Components"]
+    C --> C2["📄 Pages"]
+    C --> C3["🖼️ Assets"]
+    C --> C4["📊 Data"]
+    C --> C5["🔧 Hooks"]
+    C --> C6["⚙️ Config"]
+    C --> C7["App.jsx & main.jsx"]
+    
+    C1 --> C1A["layout/"]
+    C1 --> C1B["ui/"]
+    C1 --> C1C["products/"]
+    C1 --> C1D["animations/"]
+    
+    C1A --> C1A1["Navbar.jsx"]
+    C1A --> C1A2["Footer.jsx"]
+    C1A --> C1A3["Container.jsx"]
+    
+    C1B --> C1B1["Button.jsx"]
+    C1B --> C1B2["Card.jsx"]
+    C1B --> C1B3["SectionTitle.jsx"]
+    
+    C1C --> C1C1["ProductCard.jsx"]
+    C1C --> C1C2["ProductGrid.jsx"]
+    C1C --> C1C3["ProductGallery.jsx"]
+    C1C --> C1C4["ProductFeatures.jsx"]
+    C1C --> C1C5["ProductSearch.jsx"]
+    
+    C1D --> C1D1["FadeIn.jsx"]
+    C1D --> C1D2["SlideUp.jsx"]
+    
+    C2 --> C2A["Home.jsx"]
+    C2 --> C2B["Products.jsx"]
+    C2 --> C2C["ProductPage.jsx"]
+    C2 --> C2D["Support.jsx"]
+    
+    C3 --> C3A["images/"]
+    C3 --> C3B["products/"]
+    C3 --> C3C["product/"]
+    C3 --> C3D["hero.png"]
+    C3 --> C3E["react.svg"]
+    C3 --> C3F["vite.svg"]
+    
+    C4 --> C4A["products.js"]
+    C5 --> C5A["useScrollReveal.js"]
+    C6 --> C6A["contact.js"]
+    
+    D --> D1["node_modules/"]
+    
+    style A fill:#4A90E2,color:#fff,font-weight:bold
+    style B fill:#7B68EE,color:#fff
+    style C fill:#50C878,color:#fff
+    style D fill:#FFB347,color:#fff
+    style C1 fill:#87CEEB,color:#000
+    style C2 fill:#DDA0DD,color:#000
+    style C3 fill:#F0E68C,color:#000
+    style C4 fill:#98FB98,color:#000
+    style C5 fill:#FFB6C1,color:#000
+    style C6 fill:#87CEEB,color:#000
