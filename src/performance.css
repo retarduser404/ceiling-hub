@@ -1,0 +1,68 @@
+/* Global Performance Optimizations */
+
+/* Text rendering optimization */
+body {
+  text-rendering: optimizeSpeed;
+}
+
+/* Image lazy-loading and rendering optimization */
+img {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 300px;
+}
+
+/* Content sections for viewport-based rendering */
+.content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
+
+.content-auto-large {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1000px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Mobile performance: disable expensive effects */
+@media (max-width: 768px) {
+  /* Reduce blur on mobile */
+  [class*="backdrop-blur"] {
+    backdrop-filter: blur(4px) !important;
+  }
+
+  /* Reduce shadows on mobile */
+  [class*="shadow"] {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  /* Simplify gradients on mobile */
+  [class*="gradient"] {
+    background-image: none !important;
+  }
+}
+
+/* GPU acceleration hint for animated elements */
+.will-animate {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Contain layout for grid/card sections */
+.grid-container {
+  contain: layout style;
+}
+
+/* Contain for individual cards */
+.card-container {
+  contain: layout style;
+}

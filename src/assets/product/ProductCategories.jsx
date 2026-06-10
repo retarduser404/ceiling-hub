@@ -13,9 +13,9 @@ const categories=[
 
 return(
 
-<section className="bg-darkSoft border-t border-gray-800">
+<section className="bg-white border-t border-gray-200">
 
-<div className="container-width py-6 flex flex-wrap gap-10 text-sm text-gray-400">
+<div className="container-width py-6 flex flex-wrap gap-10 text-sm text-gray-700">
 
 {categories.map((cat,i)=>(
 <span key={i} className="flex items-center gap-2">

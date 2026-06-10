@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { FiChevronDown } from "react-icons/fi";
 
 const BRANDS = [
@@ -19,7 +19,7 @@ const CATEGORIES = [
   "Gypsum Products",
 ];
 
-export default function ProductFilters({
+function ProductFilters({
   selectedBrands,
   selectedCategories,
   onBrandChange,
@@ -50,14 +50,14 @@ export default function ProductFilters({
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Header */}
       <div>
-        <h3 className="text-lg font-semibold mb-4">Filters</h3>
+        <h3 className="text-sm font-bold uppercase tracking-widest text-gray-900 mb-4">Filters</h3>
         {(selectedBrands.length > 0 || selectedCategories.length > 0) && (
           <button
             onClick={handleClearFilters}
-            className="text-sm text-accent hover:underline mb-4"
+            className="text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors duration-200"
           >
             Clear All Filters
           </button>
@@ -65,19 +65,19 @@ export default function ProductFilters({
       </div>
 
       {/* Brands Filter */}
-      <div className="border-b border-white/10 pb-6">
+      <div className="border-b border-gray-200 pb-6">
         <button
           onClick={() => setExpandBrands(!expandBrands)}
-          className="w-full flex items-center justify-between mb-4 text-white hover:text-accent transition"
+          className="w-full flex items-center justify-between mb-3 text-gray-900 hover:text-blue-600 transition-colors duration-200"
         >
-          <span className="font-semibold">Brands</span>
+          <span className="font-semibold text-sm">Brands</span>
           <FiChevronDown
             className={`transition-transform ${expandBrands ? "rotate-180" : ""}`}
           />
         </button>
 
         {expandBrands && (
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {BRANDS.map((brand) => (
               <label
                 key={brand}
@@ -87,10 +87,9 @@ export default function ProductFilters({
                   type="checkbox"
                   checked={selectedBrands.includes(brand)}
                   onChange={() => handleBrandToggle(brand)}
-                  className="w-4 h-4 rounded border border-white/20 bg-transparent 
-                  checked:bg-accent checked:border-accent cursor-pointer"
+                  className="w-4 h-4 rounded border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 cursor-pointer accent-blue-600"
                 />
-                <span className="ml-3 text-gray-300 group-hover:text-white transition">
+                <span className="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors duration-200">
                   {brand}
                 </span>
               </label>
@@ -100,19 +99,19 @@ export default function ProductFilters({
       </div>
 
       {/* Categories Filter */}
-      <div className="border-b border-white/10 pb-6">
+      <div className="border-b border-gray-200 pb-6">
         <button
           onClick={() => setExpandCategories(!expandCategories)}
-          className="w-full flex items-center justify-between mb-4 text-white hover:text-accent transition"
+          className="w-full flex items-center justify-between mb-3 text-gray-900 hover:text-blue-600 transition-colors duration-200"
         >
-          <span className="font-semibold">Categories</span>
+          <span className="font-semibold text-sm">Categories</span>
           <FiChevronDown
             className={`transition-transform ${expandCategories ? "rotate-180" : ""}`}
           />
         </button>
 
         {expandCategories && (
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {CATEGORIES.map((category) => (
               <label
                 key={category}
@@ -122,10 +121,9 @@ export default function ProductFilters({
                   type="checkbox"
                   checked={selectedCategories.includes(category)}
                   onChange={() => handleCategoryToggle(category)}
-                  className="w-4 h-4 rounded border border-white/20 bg-transparent 
-                  checked:bg-accent checked:border-accent cursor-pointer"
+                  className="w-4 h-4 rounded border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 cursor-pointer accent-blue-600"
                 />
-                <span className="ml-3 text-gray-300 group-hover:text-white transition">
+                <span className="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors duration-200">
                   {category}
                 </span>
               </label>
@@ -136,3 +134,5 @@ export default function ProductFilters({
     </div>
   );
 }
+
+export default memo(ProductFilters);

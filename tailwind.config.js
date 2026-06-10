@@ -3,6 +3,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,jsx,ts,tsx}"
   ],
+  darkMode: 'class',
   theme: {
     extend: {
 
@@ -15,6 +16,10 @@ export default {
       fontFamily:{
         heading:["Playfair Display","serif"],
         body:["Inter","sans-serif"]
+      },
+
+      screens: {
+        'forced-dark': { raw: '(prefers-color-scheme: dark)' }
       }
 
     }

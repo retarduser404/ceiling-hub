@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { FiSearch, FiX } from "react-icons/fi";
 
-export default function ProductSearch({ onSearch }) {
+function ProductSearch({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = (e) => {
@@ -17,20 +17,18 @@ export default function ProductSearch({ onSearch }) {
 
   return (
     <div className="relative">
-      <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg" />
+      <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg" />
       <input
         type="text"
         placeholder="Search products by name, brand, or category..."
         value={searchTerm}
         onChange={handleSearch}
-        className="w-full pl-12 pr-12 py-3 bg-white/[0.05] border border-white/10 
-        rounded-lg text-white placeholder-gray-500 focus:outline-none 
-        focus:border-accent/50 focus:bg-white/[0.08] transition-all"
+        className="w-full pl-12 pr-12 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
       />
       {searchTerm && (
         <button
           onClick={handleClear}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition"
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
         >
           <FiX className="text-lg" />
         </button>
@@ -38,3 +36,5 @@ export default function ProductSearch({ onSearch }) {
     </div>
   );
 }
+
+export default memo(ProductSearch);

@@ -1,80 +1,105 @@
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.jpeg";
+import { memo } from "react";
+import ProductsMegaMenu from "./ProductsMegaMenu";
 
-export default function Navbar() {
+const Navbar = memo(() => {
   return (
-    <header className="fixed top-0 left-0 w-full z-50">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 pt-5">
-        <div className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl shadow-2xl">
-          <div className="flex items-center justify-between px-8 py-5">
+    <header className="sticky top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200/50 shadow-sm">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-20">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2 sm:gap-3 bg-transparent p-0">
+            <video
+              src="/animatedlogonew.mp4"
+              alt="Ceiling Hub"
+              className="h-10 sm:h-12 w-auto object-contain"
+              style={{ mixBlendMode: "multiply" }}
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
+            <span className="text-lg sm:text-xl font-bold text-gray-900 hidden sm:inline">
+              Ceiling Hub
+            </span>
+          </Link>
 
-            {/* Logo */}
-           <Link
-  to="/"
-  className="flex items-center gap-3"
->
-  <img
-    src={logo}
-    alt="Ceiling Hub"
-    className="h-10 w-auto object-contain"
-  />
-
-  <span className="text-white font-semibold text-xl tracking-wide">
-    Ceiling Hub
-  </span>
-</Link>
-
-            {/* Nav Links */}
-            <nav className="hidden md:flex items-center gap-10 text-sm text-white/80">
-
-              <Link
-                to="/"
-                className="hover:text-white transition duration-300"
-              >
-                Home
-              </Link>
-
-              <Link
-                to="/products"
-                className="hover:text-white transition duration-300"
-              >
-                Products
-              </Link>
-
-              <Link
-                to="/brands"
-                className="hover:text-white transition duration-300"
-              >
-                Brands
-              </Link>
-
-              <Link
-                to="/support"
-                className="hover:text-white transition duration-300"
-              >
-                Support
-              </Link>
-
-              <Link
-                to="/contact"
-                className="hover:text-white transition duration-300"
-              >
-                Contact
-              </Link>
-
-            </nav>
-
-            {/* CTA */}
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8 text-sm text-gray-700">
             <Link
-              to="/support"
-              className="hidden md:flex bg-white text-black px-6 py-3 rounded-xl font-medium hover:scale-105 transition duration-300"
+              to="/"
+              className="hover:text-blue-600 transition duration-150 font-medium"
             >
-              Get Quote
+              Home
             </Link>
+            <ProductsMegaMenu />
+            <Link
+              to="/brands"
+              className="hover:text-blue-600 transition duration-150 font-medium"
+            >
+              Brands
+            </Link>
+            <Link
+              to="/faq"
+              className="hover:text-blue-600 transition duration-150 font-medium"
+            >
+              FAQ
+            </Link>
+            <Link
+              to="/contact"
+              className="hover:text-blue-600 transition duration-150 font-medium"
+            >
+              Contact
+            </Link>
+          </nav>
 
-          </div>
+          {/* Mobile Navigation Placeholder */}
+          <div className="md:hidden flex-1" />
+
+          {/* CTA */}
+          <Link
+            to="/support"
+            className="bg-blue-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-150 text-sm sm:text-base"
+          >
+            Get Quote
+          </Link>
+        </div>
+
+        {/* Mobile Navigation Dropdown Section */}
+        <div className="md:hidden">
+          <nav className="flex flex-col text-sm text-gray-700 w-full">
+            <Link
+              to="/"
+              className="px-4 py-3 hover:bg-gray-50 transition duration-150 font-medium border-b border-gray-100"
+            >
+              Home
+            </Link>
+            <ProductsMegaMenu />
+            <Link
+              to="/brands"
+              className="px-4 py-3 hover:bg-gray-50 transition duration-150 font-medium border-b border-gray-100"
+            >
+              Brands
+            </Link>
+            <Link
+              to="/faq"
+              className="px-4 py-3 hover:bg-gray-50 transition duration-150 font-medium border-b border-gray-100"
+            >
+              FAQ
+            </Link>
+            <Link
+              to="/contact"
+              className="px-4 py-3 hover:bg-gray-50 transition duration-150 font-medium border-b border-gray-100"
+            >
+              Contact
+            </Link>
+          </nav>
         </div>
       </div>
     </header>
   );
-}
+});
+
+Navbar.displayName = "Navbar";
+
+export default Navbar;

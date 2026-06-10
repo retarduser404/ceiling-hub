@@ -32,7 +32,7 @@ export default function ProductSearch({ products, setFiltered }) {
         placeholder="Search products..."
         value={query}
         onChange={handleSearch}
-        className="w-full bg-[#0f1115] border border-gray-700 rounded-lg px-5 py-3 text-white outline-none focus:border-green-500"
+        className="w-full bg-white border border-gray-300 rounded-lg px-5 py-3 text-gray-900 outline-none focus:border-green-500"
       />
 
     </div>

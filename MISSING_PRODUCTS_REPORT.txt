@@ -1,0 +1,110 @@
+MISSING PRODUCTS ANALYSIS
+========================
+
+BRAND BY BRAND BREAKDOWN:
+  Armstrong: 5 missing
+  Saint Gobain Gypsum: 9 missing
+  Jointing: 4 missing
+  Gypserra Framing: 0 missing (all on website)
+  Gypframe Prima: 0 missing (all on website)
+  Saint Gobain Plaster Boards: 6 missing
+  Rigitone: 7 missing
+  PVC Laminated: 2 missing
+  KNAUF India: 2 missing
+  Bison: 2 missing
+  Ramco: 1 missing
+  Everest: 10 missing
+  JK Lakshmi: 0 missing (on website)
+  Sakarni: 0 missing (all on website)
+  Shera: 1 missing
+  Rockwool: 1 missing
+  UP Twiga: 3 missing
+  Nilkamal: 2 missing
+  Earth: 0 missing (on website)
+  Trimurti: 1 missing
+  Mineral Fiber: 1 missing
+  Ceiling Tiles: 2 missing
+  Ceiling Channel: 1 missing
+  Floor Protection: 2 missing
+  Rapicon Wall Panel: 0 missing (all on website)
+
+COMPLETE MISSING PRODUCTS LIST:
+================================
+
+1. Armstrong Classic Lite RH99
+2. Armstrong Dune Ceiling Tiles (Max RH99)
+3. Armstrong FINE FISSURED Hi NRC
+4. Armstrong PRELUDE 24mm T-Grid
+5. Armstrong Suspended Ceiling Grid 15mm
+6. Bison Panel Board
+7. Bison Plain Board
+8. Bubble Guard Floor Protector
+9. Everest Arteseries Cement Wood Panels
+10. Everest Arteseries Grid Ceiling Tiles
+11. Everest Arteseries Textured Wall Panel
+12. Everest Arteseries Textured Wall Panels
+13. Everest Artestone Wall Cladding
+14. Everest Artewood Cement Wood Cladding
+15. Everest Designer Ceiling Tiles
+16. Everest Drywall Partition
+17. Everest SuperHD Heavy Duty Board
+18. GI Pop Ceiling Channel
+19. Generic Fire Rated (12.5mm, 30 min)
+20. Glass Wool Ceiling Tiles
+21. Glass Wool Pipe Insulation
+22. Gyprex PVC Laminated
+23. Gyproc Easi Fill 90
+24. Gyproc Easi-Fill 90
+25. Gyproc Fire & Moisture Resistant (12.5mm)
+26. Gyproc Fireline (12.5mm, 60 min)
+27. Gyproc Fultone 12.5mm
+28. Gyproc Moisture Resistant (12.5mm, 1830x1220mm)
+29. Gyproc Moisture Resistant (12.5mm, 2440x1220mm)
+30. Gyproc Moisture Resistant (12.5mm, 3000x1200mm)
+31. Gyproc Moisture Resistant (15mm)
+32. Gyproc Pro-Fill Jointing
+33. Gyproc Pro-Top Ready Mix (Renamed from Pro-Top in analysis)
+34. Gyproc Rigitone Activ Air 12-20/66
+35. Gyproc Rigitone Activ Air 12/25Q
+36. Gyproc Rigitone Activ Air 6/18
+37. Gyproc Rigitone Activ Air 8-15-20 Super
+38. Gyproc Rigitone Activ Air 8/18
+39. Gyproc Rigitone Activ Air 8/18Q
+40. Knauf Armstrong Perforated Metal Lay-In
+41. Knauf Fire Resistant (15mm, 60 min)
+42. Moisture Resistant (9mm, Tapered Edge)
+43. Nilkamal Floor Protection Bubble Sheet
+44. PVC Laminated Gypsum Ceiling Tiles
+45. Pin Hole Ceiling Tile
+46. Ramco Hicem Fibre Cement Board
+47. Roxul Rockwool Building Roll
+48. SHERA Shiplap Exterior Facading
+49. Saint Gobain Gyproc Core Board
+50. Saint Gobain Gyproc Duraline Board
+51. Saint Gobain Gyproc Fireline Ceiling Tile
+52. Saint Gobain Gyproc Habito Board
+53. Saint Gobain Gyproc Moisture Resistant Gypsum Ceiling Tile
+54. Saint Gobain Quattro 41
+55. Trimurti Gypsum Plaster
+56. Twiga Fiberglass Wool Insulation
+57. USG Boral EKO Lite Ceiling Section
+58. USG Boral EKO Lite Perimeter
+
+SUMMARY:
+========
+- Total Products Wanted: 154
+- Currently On Website: 127
+- Missing Products: 58
+- Completion Percentage: 82.5%
+- Target: 150 products
+- Products Still Needed: 23 more (to reach 150 target)
+
+KEY INSIGHTS:
+=============
+• Everest products have the most gaps (10 missing) - primarily specialty tiles and wall cladding
+• Saint Gobain Gypsum lacks specification variants (moisture resistant, fire-rated variants)
+• Rigitone acoustic ceiling tiles are significantly under-represented (7 missing)
+• Many Saint Gobain Plaster Boards specialty options missing (6 products)
+• Bison line needs expansion with panel and plain board options
+• Several Gyproc specialty jointing and moisture-resistant variants not listed
+• UP Twiga glass wool products partially covered but pipe insulation missing

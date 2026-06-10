@@ -1,293 +1,177 @@
 import { useParams, Link } from "react-router-dom";
-import { useState } from "react";
+import { useMemo, useState, useCallback, memo } from "react";
 import { motion } from "framer-motion";
-import { FiCheck, FiArrowRight, FiPhone, FiMail } from "react-icons/fi";
+import { FiCheck } from "react-icons/fi";
 
-import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ProductCard from "../components/products/ProductCard";
 
 import { products } from "../data/products";
 import { contact } from "../config/contact";
 
+// Memoize the thumbnail button for gallery optimization
+const ThumbnailButton = memo(({ img, isSelected, onClick, altText, index }) => (
+  <button
+    key={index}
+    onClick={onClick}
+    className={`rounded-lg overflow-hidden border transition-colors duration-200 aspect-square ${
+      isSelected
+        ? "border-blue-500 shadow-md"
+        : "border-gray-200 hover:border-gray-300"
+    }`}
+    aria-label={`View image ${index + 1}`}
+  >
+    <img
+      className="h-full w-full object-cover"
+      src={img}
+      alt={altText}
+      loading="lazy"
+      decoding="async"
+    />
+  </button>
+));
+
+ThumbnailButton.displayName = "ThumbnailButton";
+
 export default function ProductPage() {
   const { id } = useParams();
   const [selectedImage, setSelectedImage] = useState(null);
+
   const product = products.find(
     (p) => String(p.id) === String(id)
   );
 
+  const handleImageSelect = useCallback((img) => {
+    setSelectedImage(img);
+  }, []);
+
   if (!product) {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
-        <Navbar />
-
+      <div className="min-h-screen bg-white text-gray-900 flex items-center justify-center px-4">
         <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">
+          <h1 className="text-3xl font-bold mb-4">
             Product not found
           </h1>
-
-          <Link
-            to="/products"
-            className="text-accent hover:underline inline-flex items-center gap-2"
-          >
-            Back to Products <FiArrowRight />
+          <Link to="/products" className="text-blue-600 hover:underline">
+            Back to Products →
           </Link>
         </div>
       </div>
     );
   }
 
-  const relatedProducts = products.filter(
-    (p) =>
-      p.category === product.category &&
-      p.id !== product.id
-  );
+  const relatedProducts = useMemo(() => {
+    return products.filter(
+      (p) =>
+        p.category === product.category &&
+        p.id !== product.id
+    ).slice(0, 3);
+  }, [product.category, product.id]);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-      },
-    },
-  };
+  const displayImage = selectedImage || product.image;
+  const galleryImages = useMemo(() => product.images || [product.image], [product.images, product.image]);
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <Navbar />
+    <div className="min-h-screen bg-white text-gray-900">
 
-      {/* HERO SECTION */}
-      <section className="relative pt-28 pb-16 border-b border-white/10">
-        <div className="container-width">
+      {/* HERO */}
+      <section className="border-b border-gray-200 py-10 sm:py-14">
+        <div className="container-width px-4 sm:px-6">
 
-          {/* Breadcrumb */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="flex items-center gap-2 mb-8 text-sm text-gray-500"
-          >
-            <Link
-              to="/products"
-              className="hover:text-white transition"
-            >
-              Products
-            </Link>
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
 
-            <span>/</span>
-
-            <span className="text-accent">
-              {product.name}
-            </span>
-          </motion.div>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-
-            {/* Product Image */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7 }}
-              className="rounded-2xl overflow-hidden bg-white/[0.02] border border-white/10 p-8"
-            >
-              <div>
-                {/* Main Image */}
+            {/* IMAGE */}
+            <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+              <div className="relative bg-gray-50 rounded-xl overflow-hidden">
                 <img
-                  src={selectedImage || product.image}
+                  src={displayImage}
                   alt={product.name}
-                  className="w-full h-[500px] object-cover rounded-xl"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full aspect-square sm:aspect-[4/5] object-cover"
                 />
-
-                {/* Real Thumbnail Gallery */}
-                {(product.images || [product.image]).length > 0 && (
-                  <div className="grid grid-cols-3 gap-4 mt-5">
-                    {(product.images || [product.image]).map((img, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setSelectedImage(img)}
-                        className={`rounded-xl overflow-hidden border transition duration-300 ${(selectedImage || product.image) === img
-                          ? "border-accent"
-                          : "border-white/10 hover:border-white/30"
-                          }`}
-                      >
-                        <img
-                          src={img}
-                          alt={`${product.name}-${index}`}
-                          className="w-full h-24 object-cover"
-                        />
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </motion.div>
-
-            {/* Product Content */}
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              className="space-y-8"
-            >
-              <div>
-                <motion.p
-                  variants={itemVariants}
-                  className="text-accent text-sm tracking-widest uppercase mb-2"
-                >
-                  {product.brand}
-                </motion.p>
-
-                <motion.h1
-                  variants={itemVariants}
-                  className="font-heading text-5xl md:text-6xl leading-tight mb-4"
-                >
-                  {product.name}
-                </motion.h1>
-
-                <motion.p
-                  variants={itemVariants}
-                  className="text-gray-400 text-lg"
-                >
-                  {product.category}
-                </motion.p>
               </div>
 
-              <motion.p
-                variants={itemVariants}
-                className="text-gray-300 text-lg leading-relaxed"
-              >
+              <div className="grid grid-cols-4 gap-3 mt-4">
+                {galleryImages.map((img, i) => (
+                  <ThumbnailButton
+                    key={i}
+                    img={img}
+                    isSelected={displayImage === img}
+                    onClick={() => handleImageSelect(img)}
+                    altText={`${product.name} thumbnail ${i + 1}`}
+                    index={i}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* CONTENT */}
+            <div className="space-y-5">
+              <p className="text-blue-600 text-xs tracking-widest uppercase font-semibold">
+                {product.brand}
+              </p>
+
+              <h1 className="font-bold text-2xl sm:text-3xl md:text-5xl text-gray-900">
+                {product.name}
+              </h1>
+
+              <p className="text-gray-600 text-sm">
+                {product.category}
+              </p>
+
+              <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
                 {product.fullDescription || product.description}
-              </motion.p>
+              </p>
 
-              {/* Premium CTA + Brochure Block */}
-              <motion.div
-                variants={itemVariants}
-                className="pt-6 space-y-6"
-              >
-                {/* Brochure + Technical Docs */}
-                <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
-                  <p className="text-sm tracking-[0.2em] uppercase text-gray-500 mb-4">
-                    Technical Documents
-                  </p>
+              {/* CTA */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
 
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <a
-                      href="#"
-                      className="border border-white/10 rounded-xl px-5 py-4
-        hover:border-white/30 transition duration-300"
-                    >
-                      <p className="font-medium mb-1">
-                        Product Brochure
-                      </p>
-                      <p className="text-sm text-gray-400">
-                        Download complete product overview
-                      </p>
-                    </a>
+                <a
+                  href={`https://wa.me/${contact.whatsapp}?text=Hi, I'm interested in ${product.name}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-center py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 active:scale-95 transition-all duration-200 shadow-md hover:shadow-lg"
+                >
+                  WhatsApp Quote
+                </a>
 
-                    <a
-                      href="#"
-                      className="border border-white/10 rounded-xl px-5 py-4
-        hover:border-white/30 transition duration-300"
-                    >
-                      <p className="font-medium mb-1">
-                        Technical Datasheet
-                      </p>
-                      <p className="text-sm text-gray-400">
-                        Specifications & performance data
-                      </p>
-                    </a>
-                  </div>
+                <a
+                  href={`tel:${contact.phone1}`}
+                  className="text-center py-3 border border-gray-300 text-gray-900 rounded-lg hover:bg-gray-50 active:scale-95 transition-all duration-200"
+                >
+                  Call Now
+                </a>
+
+              </div>
+
+              {/* Docs */}
+              <div className="border border-gray-200 rounded-xl p-5 bg-gray-50 hover:bg-gray-100 transition-colors duration-200">
+                <p className="text-xs uppercase tracking-widest text-gray-600 mb-3 font-semibold">
+                  Documents
+                </p>
+                <div className="grid sm:grid-cols-2 gap-3 text-sm">
+                  <div className="border border-gray-200 p-3 rounded-lg hover:border-gray-300 transition-colors duration-200 cursor-pointer text-gray-700">Brochure</div>
+                  <div className="border border-gray-200 p-3 rounded-lg hover:border-gray-300 transition-colors duration-200 cursor-pointer text-gray-700">Datasheet</div>
                 </div>
+              </div>
 
-                {/* Conversion Buttons */}
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <a
-                    href={`https://wa.me/${contact.whatsapp}?text=Hi, I'm interested in ${product.name}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2
-      px-8 py-4 bg-white text-black
-      font-semibold rounded-xl
-      hover:scale-[1.02] transition duration-300"
-                  >
-                    <FiPhone />
-                    WhatsApp For Quote
-                  </a>
-
-                  <a
-                    href={`mailto:${contact.email}?subject=Product Inquiry: ${product.name}`}
-                    className="flex items-center justify-center gap-2
-      px-8 py-4 border border-white/20
-      rounded-xl hover:bg-white hover:text-black
-      transition duration-300"
-                  >
-                    <FiMail />
-                    Talk To Expert
-                  </a>
-
-                  <a
-                    href={`tel:${contact.phone1 || "+917678654408"}`}
-                    className="flex items-center justify-center gap-2
-      px-8 py-4 border border-white/20
-      rounded-xl hover:border-white/50
-      transition duration-300"
-                  >
-                    <FiPhone />
-                    Call Now
-                  </a>
-
-                  <Link
-                    to="/support"
-                    className="flex items-center justify-center gap-2
-      px-8 py-4 border border-white/20
-      rounded-xl hover:border-accent/50
-      transition duration-300"
-                  >
-                    Get Consultation
-                    <FiArrowRight />
-                  </Link>
-                </div>
-              </motion.div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* FEATURES */}
       {(product.features || []).length > 0 && (
-        <section className="py-20 border-b border-white/10">
-          <div className="container-width">
-            <h2 className="font-heading text-4xl md:text-5xl mb-12">
-              Key Features
-            </h2>
+        <section className="py-12 sm:py-16 border-b border-gray-200">
+          <div className="container-width px-4 sm:px-6">
+            <h2 className="text-2xl sm:text-4xl font-bold mb-8 text-gray-900">Key Features</h2>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              {(product.features || []).map((feature, idx) => (
-                <div
-                  key={idx}
-                  className="flex gap-4 p-6 rounded-lg border border-white/10 bg-white/[0.02]"
-                >
-                  <div className="w-6 h-6 rounded-full bg-accent text-black flex items-center justify-center mt-1">
-                    <FiCheck />
-                  </div>
-
-                  <p className="text-gray-300">
-                    {feature}
-                  </p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {product.features.map((f, i) => (
+                <div key={i} className="flex gap-3 p-4 border border-gray-200 rounded-lg hover:border-gray-300 hover:shadow-sm transition-all duration-200">
+                  <FiCheck className="flex-shrink-0 text-blue-600 mt-0.5" />
+                  <p className="text-sm text-gray-700">{f}</p>
                 </div>
               ))}
             </div>
@@ -295,73 +179,17 @@ export default function ProductPage() {
         </section>
       )}
 
-      {/* PREMIUM SPECIFICATIONS */}
+      {/* SPECS */}
       {Object.keys(product.specifications || {}).length > 0 && (
-        <section className="py-24 border-b border-white/10">
-          <div className="container-width">
+        <section className="py-14 sm:py-20 border-b border-gray-200">
+          <div className="container-width px-4 sm:px-6">
+            <h2 className="text-2xl sm:text-4xl font-bold mb-10 text-gray-900">Specifications</h2>
 
-            <div className="mb-14">
-              <p className="text-accent tracking-[0.3em] text-sm uppercase mb-4">
-                Technical Specifications
-              </p>
-
-              <h2 className="font-heading text-4xl md:text-6xl leading-tight mb-5">
-                Product Specifications
-              </h2>
-
-              <p className="text-gray-400 max-w-2xl text-lg leading-relaxed">
-                Detailed performance metrics and technical standards
-                designed for commercial, residential, and industrial
-                project requirements.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {Object.entries(product.specifications || {}).map(
-                ([key, value], index) => (
-                  <div
-                    key={key}
-                    className="rounded-2xl border border-white/10
-              bg-gradient-to-br from-white/[0.04] to-white/[0.02]
-              p-7 hover:border-white/20 transition duration-300"
-                  >
-                    <p className="text-xs tracking-[0.25em] uppercase text-gray-500 mb-4">
-                      Spec {String(index + 1).padStart(2, "0")}
-                    </p>
-
-                    <h3 className="text-lg font-medium mb-3">
-                      {key}
-                    </h3>
-
-                    <p className="text-accent text-xl font-semibold">
-                      {value}
-                    </p>
-                  </div>
-                )
-              )}
-            </div>
-
-          </div>
-        </section>
-      )}
-
-      {/* APPLICATIONS */}
-      {(product.applications || []).length > 0 && (
-        <section className="py-20 border-b border-white/10">
-          <div className="container-width">
-            <h2 className="font-heading text-4xl md:text-5xl mb-12">
-              Applications
-            </h2>
-
-            <div className="grid md:grid-cols-3 gap-6">
-              {(product.applications || []).map((app, idx) => (
-                <div
-                  key={idx}
-                  className="p-8 rounded-xl border border-white/10 bg-white/[0.02]"
-                >
-                  <p className="text-gray-300 font-medium">
-                    {app}
-                  </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {Object.entries(product.specifications).map(([k, v]) => (
+                <div key={k} className="border border-gray-200 p-4 rounded-lg hover:border-gray-300 hover:shadow-sm transition-all duration-200">
+                  <p className="text-gray-600 text-xs font-semibold mb-1">{k}</p>
+                  <p className="text-blue-600 font-medium">{v}</p>
                 </div>
               ))}
             </div>
@@ -369,128 +197,23 @@ export default function ProductPage() {
         </section>
       )}
 
-      {/* RELATED PRODUCTS — FIXED VERSION */}
+      {/* RELATED */}
       {relatedProducts.length > 0 && (
-        <section className="pt-20 pb-20 border-b border-white/10">
-          <div className="container-width">
+        <section className="py-12 sm:py-16 border-t border-gray-200">
+          <div className="container-width px-4 sm:px-6">
+            <h2 className="text-2xl sm:text-4xl font-bold mb-8 text-gray-900">
+              Related Products
+            </h2>
 
-            <div className="mb-12">
-              <h2 className="font-heading text-4xl md:text-5xl mb-4">
-                Related Products
-              </h2>
-
-              <p className="text-gray-400">
-                Explore other products in the {product.category} category
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {relatedProducts.slice(0, 3).map((relatedProduct) => (
-                <div key={relatedProduct.id}>
-                  <ProductCard product={relatedProduct} />
-                </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {relatedProducts.map((p) => (
+                <ProductCard key={p.id} product={p} />
               ))}
             </div>
-
           </div>
         </section>
       )}
 
-      {/* FINAL CTA */}
-      <section className="py-20 pb-40">
-        <div className="container-width">
-          <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-12 text-center">
-            <h2 className="font-heading text-4xl md:text-5xl mb-6">
-              Ready to Get Started?
-            </h2>
-
-            <p className="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">
-              Connect with our experts to discuss how {product.name}
-              can meet your project requirements.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href={`https://wa.me/${contact.whatsapp}?text=Hi, I'm interested in ${product.name}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-accent text-black font-semibold rounded-lg"
-              >
-                Contact via WhatsApp
-                <FiArrowRight />
-              </a>
-
-              <Link
-                to="/products"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3 border border-white/20 rounded-lg"
-              >
-                Explore More Products
-                <FiArrowRight />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Sticky Quote Bar */}
-      <div
-        className="fixed bottom-0 left-0 w-full z-50
-  border-t border-white/10
-  bg-black/90 backdrop-blur-xl"
-      >
-        <div className="container-width py-4">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
-
-            {/* Left Content */}
-            <div>
-              <p className="text-sm text-gray-400 uppercase tracking-[0.2em] mb-1">
-                Need Fast Pricing?
-              </p>
-
-              <h3 className="text-lg md:text-xl font-semibold">
-                Get Instant Quote For {product.name}
-              </h3>
-            </div>
-
-            {/* Right CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
-
-              <a
-                href={`https://wa.me/${contact.whatsapp}?text=Hi, I'm interested in ${product.name}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-center px-6 py-3
-          bg-white text-black rounded-xl
-          font-semibold hover:scale-[1.02]
-          transition duration-300"
-              >
-                WhatsApp Quote
-              </a>
-
-              <a
-                href={`tel:${contact.phone1 || "+917678654408"}`}
-                className="text-center px-6 py-3
-          border border-white/20 rounded-xl
-          hover:bg-white hover:text-black
-          transition duration-300"
-              >
-                Call Now
-              </a>
-
-              <Link
-                to="/support"
-                className="text-center px-6 py-3
-          border border-white/20 rounded-xl
-          hover:border-accent/50
-          transition duration-300"
-              >
-                Consultation
-              </Link>
-
-            </div>
-          </div>
-        </div>
-      </div>
       <Footer />
     </div>
   );

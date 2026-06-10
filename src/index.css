@@ -2,9 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  color-scheme: light only;
+}
+
 body{
-  background:#0B0C0C;
-  color:#ffffff;
+  background:#ffffff !important;
+  color:#000000 !important;
+  forced-color-adjust: none;
   font-family: Inter, system-ui, sans-serif;
 }
 
