@@ -1,4 +1,4 @@
-# ceiling-hub 🚀✨
+# ceiling-hub
 
 > fr fr no cap, this is the move
 
@@ -14,7 +14,7 @@ ceiling-hub is your one-stop shop for spinning up React projects that actually *
 - **HMR that goes crazy** — change your code, see it instantly
 - **ESLint opinions** (but make it fashion)
 
-## the stack 📚
+## the stack 
 
 | thing | what it do |
 |------|-----------|
@@ -36,11 +36,11 @@ npm install
 # start the dev server (watch it go brrr)
 npm run dev
 
-# build for prod (let's get this bread 💰)
+# build for prod (let's get this bread )
 npm run build
 ```
 
-your app will be live at `http://localhost:5173` — go off 🔥
+your app will be live at `http://localhost:5173` — go off 
 
 ## plugins (choose your fighter) ⚔️
 
@@ -61,7 +61,7 @@ npm install --save-dev @vitejs/plugin-react-swc
 # then update vite.config.js to use swcReact() instead
 ```
 
-## react compiler (the experimental era) 🧪
+## react compiler (the experimental era) 
 
 the React Compiler is lowkey fire but we didn't enable it by default cuz it hits different on build times. if you're built different and want it anyway:
 
@@ -71,7 +71,7 @@ npm install --save-dev babel-plugin-react-compiler
 
 then follow [this guide](https://react.dev/learn/react-compiler/installation) to set it up fr fr
 
-## eslint (code hygiene matters bestie) 🧼
+## eslint (code hygiene matters bestie) 
 
 already got the base setup, but if you're running prod, upgrade to TypeScript rules:
 
@@ -79,7 +79,7 @@ already got the base setup, but if you're running prod, upgrade to TypeScript ru
 npm install --save-dev @typescript-eslint/eslint-plugin @typescript-eslint/parser
 ```
 
-update `.eslintrc.js` to enable type-aware rules and watch your code stay immaculate ✨
+update `.eslintrc.js` to enable type-aware rules and watch your code stay immaculate 
 
 ## the vibes checklist ✅
 
@@ -90,7 +90,7 @@ update `.eslintrc.js` to enable type-aware rules and watch your code stay immacu
 - [ ] push it, git it, commit it
 - [ ] link it in your portfolio (the endorsements will come)
 
-## contributing (let's make it together) 🤝
+## contributing (let's make it together) 
 
 this is a template but it can be more. if you got a move that slaps:
 
@@ -105,6 +105,5 @@ MIT — do whatever, i'm not the vibe police
 
 ---
 
-**made with 🖤 and too much caffeine**
 
 *last updated: 2026 (the future is now, bestie)*
